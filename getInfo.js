@@ -19,6 +19,12 @@ module.exports = async function(location,day,is_notif){
 
         try{
             var result = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${location}&days=${day}&aqi=no&alerts=no`) 
+            if(result.statusCode != 200){
+                let embed = new MessageEmbed()
+                    .setTitle("エラー")
+                    .setDescription(error.statusCode+"："+error.response.data.message)
+                    .setColor(0xFF0000)
+            }
         }catch(error){
 
             let embed = new MessageEmbed()
